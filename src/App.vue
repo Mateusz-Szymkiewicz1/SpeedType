@@ -28,7 +28,11 @@ export default {
         this.random_string = ''
         this.lpm = 0
         document.querySelector('.book').innerText = ''
-        document.querySelector('.high_score').innerHTML = 'High Score: ' + this.high_score
+        if (this.high_score) {
+          document.querySelector('.high_score').innerHTML = 'High Score: ' + this.high_score
+        } else {
+          document.querySelector('.high_score').innerHTML = 'High Score: 0'
+        }
         for (let i = 0; i < 150; i++) {
           const randomElement = this.words[Math.floor(Math.random() * this.words.length)]
           if (randomElement.length > 1 && !this.random_string.includes(randomElement)) {
@@ -44,6 +48,7 @@ export default {
           this.seconds_left--
           let seconds = this.seconds_left
           if (seconds < 10) {
+            document.querySelector('.time').classList.add('heartBeat')
             seconds = '0' + seconds
           }
           this.time = '00:' + seconds
@@ -57,6 +62,7 @@ export default {
       this.random_string = ''
       this.underlined = ''
       this.done = ''
+      document.querySelector('.time').className = 'time'
       clearInterval(this.time_interval)
       delete this.seconds_left
       const randomBook = this.books[Math.floor(Math.random() * this.books.length)]
@@ -108,92 +114,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  body {
-    font-family: 'Arimo';
-    background: #202030;
-    color: #fff;
-    padding-top: 60px;
-    padding-bottom: 70px;
-  }
-
-  h1 {
-    text-align: center;
-    font-size: 40px;
-    margin-bottom: 10px;
-  }
-
-  .span_title {
-    color: #ddd;
-    display: block;
-    text-align: center;
-    font-size: 24px;
-  }
-
-  .box {
-    background: #303040;
-    width: 75vw;
-    height: 300px;
-    margin: auto;
-    min-width: 550px;
-    margin-top: 90px;
-    padding: 40px;
-    padding-top: 20px;
-    overflow: hidden;
-    position: relative;
-  }
-  .button{
-    color: #fff;
-    outline: 0;
-    border: 0;
-    padding: 12px;
-    font-size: 24px;
-    margin: 20px;
-    margin-left: 0;
-    margin-bottom: 60px;
-    cursor: pointer;
-    transition: .4s;
-  }
-  .Start{
-    background: #2ecc71;
-  }
-  .Start:hover{
-    background: #1dbb60;
-  }
-  .Stop{
-    background: #e74c3c;
-  }
-  .Stop:hover{
-    background: #d63b2b;
-  }
-  .time{
-    font-size: 28px;
-  }
-  .text,.done{
-    font-size: 30px;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .underline{
-    font-size: 30px;
-    text-decoration: underline;
-    text-decoration-color: aquamarine;
-  }
-  .done{
-    color: #0a9950;
-    background: #5fffa4;
-  }
-  .book, .high_score{
-    display: block;
-    font-size: 22px;
-  }
-  .high_score{
-    position: absolute;
-    top: 15px;
-    right: 20px;
-  }
-  .new_hs{
-    color: #2ecc71;
-  }
-</style>
